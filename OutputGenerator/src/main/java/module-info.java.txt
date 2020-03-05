@@ -1,0 +1,7 @@
+module com.research.veracode.outputgenerator {
+
+    //requires com.thoughtworks.xstream;
+    //requires com.google.gson;
+
+    exports com.research.veracode.outputgenerator;
+}

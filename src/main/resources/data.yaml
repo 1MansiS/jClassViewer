@@ -1,0 +1,24 @@
+class:
+  name : YES
+  extends : YES
+  implements : YES
+  type : YES
+  accessModifiers : YES
+  annotations : YES
+  properties:
+    name : YES
+    accessModifiers : YES
+    type : YES
+    annotations : YES
+  methods:
+    name : YES
+    accessModifiers : YES
+    returnType : YES
+    exceptions : YES
+    annotations : YES
+    arguments :
+      name : YES
+      type : YES
+      annotations : YES
+    #apiCalls :
+      #name: YES

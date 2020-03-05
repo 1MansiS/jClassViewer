@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'org.javamodularity.moduleplugin' version '1.6.0' apply false
+}
+
+group 'com.research.veracode.treeviewer'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.13
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //testCompile group: 'junit', name: 'junit', version: '4.12'
+    //compile 'com.google.code.gson:gson:2.8.6'
+    //compile 'com.thoughtworks.xstream:xstream:1.4.11.1'
+    //compile files('libs/gson-2.8.6.jar')
+    //compile files('libs/xstream-1.4.11.1.jar')
+
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+}
