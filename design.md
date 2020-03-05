@@ -5,6 +5,6 @@
         - No Apache BCEL related librraies to be included in any other parts of the project
 - Engine class, will create an array list with each *needed* file, as key and corresponding ClassFile object with populated data. For non-class files, value could be null or whatever.
 
-#Assumptions:
+# Assumptions:
 - POJO field names mapping to output ? Using Gson's [Field Naming Strategy](https://www.javadoc.io/doc/com.google.code.gson/gson/2.6/com/google/gson/FieldNamingPolicy.html#UPPER_CAMEL_CASE) for field mapping. So, for any future POJO field additions choose accordingly.
 - Not generating a ToC of input jar file at the moment. Just looking for .class files.
