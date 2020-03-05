@@ -1,4 +1,4 @@
-#jClassViewer
+# jClassViewer
 
 jClassViewer is a command line utility which examines all specified classes and their members from binary archive files. All these details are extracted in a text and json file format.
 
@@ -25,10 +25,10 @@ Sample output would contain:
 * return types, per method
 
 
-#Disclaimer:
+# Disclaimer:
 This tool was developed as part of a Hackfest event at veracode, with hope to be useful for accelerating research work. Its more under development with more stability with active usage within team. Not accepting any PR/bug reports at the moment. All work done as part of this is a personal project, so direct all complaints to me.
 
-#LICENSE:
+# LICENSE:
 
 TreeViewer is released under the [MIT license](https://opensource.org/licenses/MIT)
 
