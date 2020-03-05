@@ -9,13 +9,13 @@ To get started using the command-line utility, use:
 gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar --help
 ```
 
-Sample run
+**Sample run:**
 
 ```
 gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar -p ./spring.jar -n "org.springframework.web.servlet.handler" -o json
 ```
 
-Sample output would contain:
+**Sample output would contain:**
 
 * Is File a class/interface/abstract/enum class, along with access modifiers, class compiled jdk version etc
 * Class it extends and list of classes it implements
