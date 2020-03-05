@@ -1,30 +1,34 @@
-Run:
+#jClassViewer
+
+jClassViewer is a command line utility which examines all specified classes and their members from binary archive files. All these details are extracted in a text and json file format.
+
+
+To get started using the command-line utility, use:
 
 ```
-gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar -p /Users/msheth/Documents/Research-Projects/./Spring_MVC_4.x/spring_mvc_4.x_research_testcases/existing_testcases/MultiActionController/source/lib/spring.jar -n "org.springframework.web.servlet.handler"
+gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar --help
 ```
 
-Output:
-- Is File a Class/Interface/Abstract Class 
-- Imports/Implements
-- Class/Method/Argument/Properties level annotations
-- list of properties, along with access modifiers
-- list of methods, along with access modified
-- List of exceptions thrown
-- return types, per method
+Sample run
 
-Design:
-- Created a dedicated module OutputGenerator, which takes an arraylist of classfile objects with all loaded data per class file interrogated, and generates requested file format. Can add additional constrcutor when more formats are added
-	- No Jackson or any output related libraries to be included in any other parts of this project
-- Created a dedicated module for extracting required information from a Class file. This module's entry point would take yaml config file and Input Stream object of a single class file for interrogation. It will return a populated ClassFile Object.
-	- No Apache BCEL related librraies to be included in any other parts of the project
-- Engine class, will create an array list with each *needed* file, as key and corresponding ClassFile object with populated data. For non-class files, value could be null or whatever.
+```
+gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar -p ./spring.jar -n "org.springframework.web.servlet.handler" -o json
+```
 
-Assumptions:
-- POJO field names mapping to output ? Using Gson's [Field Naming Strategy](https://www.javadoc.io/doc/com.google.code.gson/gson/2.6/com/google/gson/FieldNamingPolicy.html#UPPER_CAMEL_CASE) for field mapping. So, for any future POJO field additions choose accordingly.
-- Not generating a ToC of input jar file at the moment. Just looking for .class files.
+Sample output would contain:
 
-LICENSE:
+* Is File a class/interface/abstract/enum class, along with access modifiers, class compiled jdk version etc
+* Class it extends and list of classes it implements
+* Class/Method/Argument/Properties level annotations details(type,elements)
+* list of all properties & methods, along with access modifiers, arguments & annotations details
+* List of exceptions thrown
+* return types, per method
+
+
+#Disclaimer:
+This tool was developed as part of a Hackfest event at veracode, with hope to be useful for accelerating research work. Its more under development with more stability with active usage within team. Not accepting any PR/bug reports at the moment. All work done as part of this is a personal project, so direct all complaints to me.
+
+#LICENSE:
 
 TreeViewer is released under the [MIT license](https://opensource.org/licenses/MIT)
 
