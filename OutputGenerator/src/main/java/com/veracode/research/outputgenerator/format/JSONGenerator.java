@@ -14,14 +14,6 @@ public class JSONGenerator implements OutputFormatGenerator {
     public String generateOutput(Map<String, Object> outputData) {
         String output = "" ;
 
-        FieldNamingStrategy customPolicy = f -> {
-            String retVal = "" ;
-
-            return (f.getName().equals("ClassName"))?f.getName().replace("ClassName","class_name"):f.getName();
-
-
-        };
-
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 //.setFieldNamingStrategy(customPolicy)

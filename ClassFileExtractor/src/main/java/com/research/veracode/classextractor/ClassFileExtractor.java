@@ -2,6 +2,7 @@ package com.research.veracode.classextractor;
 
 import com.research.veracode.classextractor.dto.*;
 import org.apache.bcel.classfile.*;
+import org.apache.bcel.generic.BasicType;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
@@ -108,7 +109,7 @@ public class ClassFileExtractor {
                 methodData.getMethodAccessModifiers().addAll(getAccessModifiers(method));
 
                 // Return type
-                methodData.setReturnType(method.getReturnType().getClass().toString());
+                methodData.setReturnType(method.getReturnType().toString());
 
                 // Exceptions returned by the method
                 if(method.getExceptionTable() != null) {

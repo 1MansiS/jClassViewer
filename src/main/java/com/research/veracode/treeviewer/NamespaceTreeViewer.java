@@ -1,18 +1,16 @@
 package com.research.veracode.treeviewer;
 
-import com.beust.jcommander.JCommander;
-import com.beust.jcommander.Parameter;
-import com.research.veracode.archivereader.ReadArchive;
-import com.research.veracode.classextractor.ClassFileExtractor;
-
-
-import com.thoughtworks.xstream.XStream;
-import com.veracode.research.outputgenerator.OutputGenerator;
-
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.research.veracode.archivereader.ReadArchive;
+
+import com.research.veracode.classextractor.ClassFileExtractor;
+import com.veracode.research.outputgenerator.OutputGenerator;
+
 
 /*
 Nice FileUtils: https://www.rgagnon.com/javadetails/java-0665.html
@@ -23,13 +21,13 @@ public class NamespaceTreeViewer {
     private static String path;
 
     @Parameter(names = {"--namespace", "-n"},description = "Namespace whose details is needed", order = 1)
-    private static String namespace;
+    private static String namespace = "";
 
     @Parameter(names = {"--output", "-o"},description = "Output format text/xml/json/graphdb. (Default to text output)" , order = 2)
     private static String output = "text";
 
     @Parameter(names = {"--file", "-f"},description = "Output file name. Will add extention automatically. (Defaults to output)" , order = 3)
-    private static String outputFile = "output";
+    private static String outputFile = "";
 
     @Parameter(names = {"--help","-h"}, help = true, order = 4)
     private boolean help;
@@ -53,6 +51,11 @@ public class NamespaceTreeViewer {
             return;
         }
 
+        if(outputFile.equals("")) {
+            String archiveFileName = path.substring(path.lastIndexOf('/') + 1);
+            outputFile = archiveFileName.substring(0,archiveFileName.lastIndexOf(".")) + "." + output;
+        }
+
         InputStream jarInputStream = null ;
         ClassFileExtractor classFileExtractor = new ClassFileExtractor(NamespaceTreeViewer.class.getResourceAsStream("/data.yaml"));
 
@@ -74,9 +77,9 @@ public class NamespaceTreeViewer {
         PrintWriter printWriter = null ;
 
         try {
-            printWriter = new PrintWriter(new FileWriter(outputFile+"."+output));
+            printWriter = new PrintWriter(new FileWriter(outputFile));
         } catch (IOException e) {
-            System.out.println("Exception : While creating file " + outputFile + "." + output);
+            System.out.println("Exception : While creating file " + outputFile);
         }
 
         printWriter.print(outputGenerator.generateOutput(outputClassFileDetails));

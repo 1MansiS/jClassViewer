@@ -3,23 +3,27 @@ package com.research.veracode.archivereader;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.*;
-import java.util.jar.JarEntry;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
+
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+
 
 public class ReadArchive {
     /*
     Reads and returns input stream of local file
      */
     public InputStream getInputStreamLocalFile(String path) {
-        //System.out.println("Local Path == " + path);
-
         InputStream is = null;
 
         try {
@@ -34,34 +38,29 @@ public class ReadArchive {
 
     /*
     Reads and returns input stream of remote file.
-     */
+    */
     public InputStream getInputStreamRemoteFile(String path) {
-
-        URL url = null;
-
-        try {
-            url = new URL(path);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        InputStream is = null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream() ;
 
         try {
-            is =  new ZipInputStream(url.openStream());
-        } catch (IOException e) {
-            System.out.println("Exception : while opening url " + path);
-        }
+            BufferedInputStream inputStream = new BufferedInputStream(new URL(path).openStream());
+            baos = new ByteArrayOutputStream();
+            byte data[] = new byte[1024];
+            int byteContent;
+            while ((byteContent = inputStream.read(data, 0, 1024)) > 0) {
+                baos.write(data, 0, byteContent);
+            }
+        } catch (MalformedURLException mfue) { System.out.println("Exception: Couldn't read from " + path); }
+        catch(IOException io) {System.out.println("Exception : while reading from " + path);}
 
-        System.out.println("IS == " + is.toString());
-
-        return is;
+        byte[] bytes = baos.toByteArray() ;
+        return new ByteArrayInputStream(bytes) ;
     }
 
     /*
     Returns list of all files in this archive
      */
-    public  List<String> listArchiveFiles(InputStream is) {
+    public List<String> listArchiveFiles(InputStream is) {
 
         List<String> files = new ArrayList<String>();
 
@@ -71,7 +70,6 @@ public class ReadArchive {
 
         try {
             while ((entry = zipInputStream.getNextEntry()) != null) {
-               // System.out.println("Entry " + entry.getName());
                 files.add(entry.getName());
             }
         } catch(IOException io) {System.out.println("Exception: Traversing thru file content");}
@@ -92,37 +90,26 @@ public class ReadArchive {
 
         ZipInputStream zipInputStream = new ZipInputStream(is);
 
-
-
         ZipEntry entry;
 
         Matcher m ;
 
         try {
             while ((entry = zipInputStream.getNextEntry()) != null) {
+
                 m = p.matcher(entry.getName().replace("/","."));
                 ByteArrayOutputStream baos = new ByteArrayOutputStream() ;
 
                 if(m.matches()) {
                     try {
-                      //  System.out.println("Adding " + entry.getName() + " in map ");
                         IOUtils.copy(zipInputStream, baos) ;
                     } catch (IOException e) {System.out.println("Exception: Reading " + entry.getName());e.printStackTrace(); }
                     matchingFileInputStream.put(entry.getName(),new ByteArrayInputStream(baos.toByteArray()));
                 }
             }
         } catch(IOException io) {System.out.println("Exception: Traversing thru file content");}
-        //System.out.println("Size of return map == " + matchingFileInputStream.size());
+
         return matchingFileInputStream;
     }
-
-    /*
-        Returns the inputstream of className
-     */
-    private InputStream fileStream(InputStream is, String className ) {
-        InputStream inputStream = null ;
-
-        return inputStream;
-     }
 }
 
