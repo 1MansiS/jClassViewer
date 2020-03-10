@@ -24,6 +24,8 @@ gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar 
 * List of exceptions thrown
 * return types, per method
 
+# Notes:
+- Doesn't support jmod format yet. Which mean, no core java library is supported. 
 
 # Disclaimer:
 This tool was developed as part of a Hackfest event at veracode, with hope to be useful for accelerating research work. Its more under development with more stability with active usage within team. Not accepting any PR/bug reports at the moment. All work done as part of this is a personal project, so direct all complaints to me.
