@@ -24,10 +24,12 @@ public class ReadArchive {
     Reads and returns input stream of local file
      */
     public InputStream getInputStreamLocalFile(String path) {
+
         InputStream is = null;
 
         try {
             is = new FileInputStream(new File(path));
+
         } catch (FileNotFoundException e) {
             System.out.println("Exception: Reading input file " + path);
             System.exit(0);

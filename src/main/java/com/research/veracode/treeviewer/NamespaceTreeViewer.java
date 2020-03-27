@@ -29,6 +29,9 @@ public class NamespaceTreeViewer {
     @Parameter(names = {"--file", "-f"},description = "Output file name. Will add extention automatically. (Defaults to output)" , order = 3)
     private static String outputFile = "";
 
+    @Parameter(names = {"--list", "-l"},description = "List class names" , order = 4)
+    private static boolean list = false;
+
     @Parameter(names = {"--help","-h"}, help = true, order = 4)
     private boolean help;
 
@@ -68,6 +71,14 @@ public class NamespaceTreeViewer {
             jarInputStream = readArchive.getInputStreamLocalFile(path);
         } else { // if jar file is remote
             jarInputStream = readArchive.getInputStreamRemoteFile(path);
+        }
+
+        if(list) {
+            for(String className : readArchive.listArchiveFiles(jarInputStream)) {
+                System.out.println(className);
+            }
+
+            System.exit(0);
         }
 
         for(Map.Entry<String, InputStream> entry : readArchive.getNameSpaceFilesInputStream(jarInputStream, namespace+".*.class").entrySet()) {
