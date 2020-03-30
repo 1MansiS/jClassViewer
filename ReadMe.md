@@ -1,6 +1,6 @@
 # jClassViewer
 
-jClassViewer is a command line utility which examines all classes and their members for specified namespace. It extracts these information from a local or a remote jar file. All these details can be stored in a text, json or xml formats for easier parsing.
+jClassViewer is a command line utility which examines all classes and its members for specified namespace. It extracts this information from a local or a remote jar file. All these details can be stored in a text, json or xml formats for easier parsing.
 
 
 To get started using the command-line utility, use:
@@ -17,7 +17,7 @@ gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar 
 
 **Sample output would contain:**
 
-* **Class Details:** Is File a class/interface/abstract/enum class, along with inheritance details, annotations, access modifiers, class compiled jdk version etc
+* **Class Details:** If a file is a class/interface/abstract/enum class, along with inheritance details, annotations, access modifiers, class compiled jdk version etc
 * **Properties Details:** All properties along with access modifiers, arguments & annotations details
 * **Method Details:** All public/private methods along with its entire signatures i.e. arguments and their types/annotations, return types, exceptions, access modifiers etc.
 
