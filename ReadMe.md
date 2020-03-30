@@ -1,6 +1,6 @@
 # jClassViewer
 
-jClassViewer is a command line utility which examines all specified classes and their members from binary archive files. All these details are extracted in a text and json file format.
+jClassViewer is a command line utility which examines all classes and their members for specified namespace. It extracts these information from a local or a remote jar file. All these details can be stored in a text, json or xml formats for easier parsing.
 
 
 To get started using the command-line utility, use:
@@ -12,20 +12,14 @@ gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar 
 **Sample run:**
 
 ```
-gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar -p ./spring.jar -n "org.springframework.web.servlet.handler" -o json
+gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar --path https://repo1.maven.org/maven2/org/springframework/spring-aop/5.2.5.RELEASE/spring-aop-5.2.5.RELEASE.jar --namespace org.springframework.web.client --output xml
 ```
 
 **Sample output would contain:**
 
-* Is File a class/interface/abstract/enum class, along with access modifiers, class compiled jdk version etc
-* Class it extends and list of classes it implements
-* Class/Method/Argument/Properties level annotations details(type,elements)
-* list of all properties & methods, along with access modifiers, arguments & annotations details
-* List of exceptions thrown
-* return types, per method
-
-# Notes:
-- Doesn't support jmod format yet. Which mean, no core java library is supported. 
+* **Class Details:** Is File a class/interface/abstract/enum class, along with inheritance details, annotations, access modifiers, class compiled jdk version etc
+* **Properties Details:** All properties along with access modifiers, arguments & annotations details
+* **Method Details:** All public/private methods along with its entire signatures i.e. arguments and their types/annotations, return types, exceptions, access modifiers etc.
 
 # Disclaimer:
 This tool was developed as part of a Hackfest event at veracode, with hope to be useful for accelerating research work. Its more under development with more stability with active usage within team. Not accepting any PR/bug reports at the moment. All work done as part of this is a personal project, so direct all complaints to me.
