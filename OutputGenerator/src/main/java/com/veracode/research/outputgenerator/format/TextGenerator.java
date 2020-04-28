@@ -11,6 +11,11 @@ public class TextGenerator implements OutputFormatGenerator {
     private String retString = "" ;
 
     @Override
+    public String generateOutput(Object outputData) {
+        return null;
+    }
+
+    /*@Override
     public String generateOutput(Map<String, Object> classFileMap) {
 
         Gson gson = new GsonBuilder()
@@ -24,7 +29,7 @@ public class TextGenerator implements OutputFormatGenerator {
         }
 
         return this.retString;
-    }
+    }*/
 
 
     private void traverseJsonObj(JsonElement jObj, int level) {
@@ -72,4 +77,6 @@ public class TextGenerator implements OutputFormatGenerator {
 
         return type;
     }
+
+
 }

@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class GraphDBGenerator implements OutputFormatGenerator{
     @Override
-    public String generateOutput(Map<String, Object> outputData) {
-        return "graphdb";
+    public String generateOutput(Object outputData) {
+        return null;
     }
 }

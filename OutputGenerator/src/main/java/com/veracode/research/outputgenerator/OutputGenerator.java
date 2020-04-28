@@ -12,7 +12,7 @@ public class OutputGenerator {
         this.outputFormat = outputFormat;
     }
 
-    public String generateOutput(Map<String, Object> outputData) {
+    public String generateOutput(Object outputData) {
         OutputFormatGenerator outputFormatGenerator = null;
 
         switch (this.outputFormat) {

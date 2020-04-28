@@ -2,7 +2,6 @@ package com.research.veracode.classextractor;
 
 import com.research.veracode.classextractor.dto.*;
 import org.apache.bcel.classfile.*;
-import org.apache.bcel.generic.BasicType;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;

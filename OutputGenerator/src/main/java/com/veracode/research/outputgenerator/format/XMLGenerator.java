@@ -15,14 +15,12 @@ import java.util.Map;
 
 public class XMLGenerator implements OutputFormatGenerator {
     @Override
-    public String generateOutput(Map<String, Object> outputData) {
+    public String generateOutput(Object outputData) {
         XStream xstream = new XStream(new StaxDriver());
 
         final Writer writer = new StringWriter();
 
-        for(Map.Entry<String, Object> outputEntry : outputData.entrySet()) {
-            xstream.marshal(outputEntry.getValue(), new PrettyPrintWriter(writer));
-        }
+        xstream.marshal(outputData, new PrettyPrintWriter(writer));
 
         return writer.toString().replaceAll("com.research.veracode.classextractor.dto.","");
     }

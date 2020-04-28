@@ -11,7 +11,7 @@ import java.util.Map;
 public class JSONGenerator implements OutputFormatGenerator {
 
     @Override
-    public String generateOutput(Map<String, Object> outputData) {
+    public String generateOutput(Object outputData) {
         String output = "" ;
 
         Gson gson = new GsonBuilder()
@@ -21,11 +21,8 @@ public class JSONGenerator implements OutputFormatGenerator {
                 .registerTypeHierarchyAdapter(Collection.class,new NullRemoverTypeAdapter())
                 .create();
 
-        for(Map.Entry<String, Object> outputEntry : outputData.entrySet()) {
-            output += gson.toJson(outputEntry.getValue());
-        }
 
-        return output;
+        return gson.toJson(outputData);
     }
 
     private class MyExclusions implements ExclusionStrategy {

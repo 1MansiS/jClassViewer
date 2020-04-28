@@ -4,13 +4,11 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 
@@ -37,6 +35,7 @@ public class ReadArchive {
 
         return is;
     }
+
 
     /*
     Reads and returns input stream of remote file.
@@ -75,15 +74,39 @@ public class ReadArchive {
                 files.add(entry.getName());
             }
         } catch(IOException io) {System.out.println("Exception: Traversing thru file content");}
+
+        return files;
+    }
+
+
+    /*
+    @param path: Path of local jmod path. Used only for jmod files.
+    @return : List of all files in this jmod file.
+     */
+    public List<String> listArchiveFiles(String path) {
+        List<String> files = new ArrayList<>();
+        ZipFile zf = null;
+        try {
+            zf = new ZipFile(path);
+        } catch (IOException e) {
+            System.out.println("Exception: Reading jmod file " + path);
+            System.exit(0);
+        }
+
+        Enumeration<? extends ZipEntry> entries = zf.entries();
+
+
+        while (entries.hasMoreElements()) {
+            files.add(entries.nextElement().getName());
+        }
+
         return files;
     }
 
     /*
-
-    @param is is InputStream if entire jar file.
-    @param matchingPattern is regexp of files we want to match against. For e.g.
-    Returns a map of all matchingPattern filename from the input stream of a zip file.
-    For e.g pass matchingFileName as "namespace" or a file extn.
+    @param is is InputStream of entire jar file. Used only for jar files.
+    @param matchingPattern is regexp of files we want to match against. For e.g. pass matchingFileName as "namespace" or a file extn.
+    @return: Returns a map of all matchingPattern filename and corresponding InputStream of each matchPattern file names.
      */
     public Map<String, InputStream> getNameSpaceFilesInputStream(InputStream is, String matchingPattern) {
         Pattern p = Pattern.compile(matchingPattern);
@@ -110,6 +133,42 @@ public class ReadArchive {
                 }
             }
         } catch(IOException io) {System.out.println("Exception: Traversing thru file content");}
+
+        return matchingFileInputStream;
+    }
+
+    /*
+    @param path: Local file path of jmod files. This function us used only for jmod files.
+    @param: matchPattern is regexp of files we want to match against. For e.g. pass matchingFileName as "namespace" or a file extn.
+    @return: Returns a map of all matchingPattern filename and corresponding InputStream of each matchPattern file names.
+     */
+    public Map<String, InputStream> getNameSpaceFilesInputStream(String path, String matchingPattern) {
+        Pattern p = Pattern.compile(matchingPattern);
+        Matcher m ;
+
+        Map<String, InputStream> matchingFileInputStream = new HashMap<String, InputStream>();
+
+        ZipFile zf = null ;
+        try {
+            zf = new ZipFile(path);
+        } catch (IOException e) {
+            System.out.println("Exception: Issues reading jmod file " + e.getMessage());
+        }
+
+        Enumeration<? extends ZipEntry> entries = zf.entries();
+
+        try {
+            while(entries.hasMoreElements()) {
+
+                ZipEntry entry = entries.nextElement();
+                m = p.matcher(entry.getName().replace("/","."));
+
+                if(m.matches()) {
+                    matchingFileInputStream.put(entry.getName(), zf.getInputStream(entry));
+                }
+            }
+
+        } catch(IOException e){System.out.println("Exception : Issues getting entries from jmod file " + e.getMessage());}
 
         return matchingFileInputStream;
     }
