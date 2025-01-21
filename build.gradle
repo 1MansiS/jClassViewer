@@ -28,6 +28,8 @@ dependencies {
     compileOnly 'org.apache.bcel:bcel:6.4.0'
     compileOnly 'commons-io:commons-io:1.4'
 
+    implementation 'org.yaml:snakeyaml:1.25'
+
     compileOnly 'com.google.code.gson:gson:2.8.6'
     compileOnly 'com.thoughtworks.xstream:xstream:1.4.11.1'
 
