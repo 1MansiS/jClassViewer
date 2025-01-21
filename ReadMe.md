@@ -12,7 +12,7 @@ gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar 
 **Sample run:**
 
 ```
-gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar --path https://repo1.maven.org/maven2/org/springframework/spring-aop/5.2.5.RELEASE/spring-aop-5.2.5.RELEASE.jar --namespace org.springframework.web.client --output xml
+gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar --path https://repo1.maven.org/maven2/org/springframework/spring-beans/6.2.2/spring-beans-6.2.2.jar --output json
 ```
 
 **Sample output would contain:**
