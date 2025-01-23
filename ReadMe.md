@@ -15,17 +15,17 @@ gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar 
 gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar --path https://repo1.maven.org/maven2/org/springframework/spring-beans/6.2.2/spring-beans-6.2.2.jar --output json
 ```
 
-**Sample output would contain:**
-
-* **Class Details:** If a file is a class/interface/abstract/enum class, along with inheritance details, annotations, access modifiers, class compiled jdk version etc
-* **Properties Details:** All properties along with access modifiers, arguments & annotations details
-* **Method Details:** All public/private methods along with its entire signatures i.e. arguments and their types/annotations, return types, exceptions, access modifiers etc.
-
 > **_NOTE:_**  XML Generation uses XStream library, which hasn't yet upgraded to using Java Module system. Workaround would be to expose all non-public members outside the containing module. Not ideal or secure! Use `--add-opens` JVM switch to make this happen. As under:
 
 ```
 java --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar --path https://repo1.maven.org/maven2/org/springframework/spring-beans/6.2.2/spring-beans-6.2.2.jar --output xml
 ```
+
+**Sample output would contain:**
+
+* **Class Details:** If a file is a class/interface/abstract/enum class, along with inheritance details, annotations, access modifiers, class compiled jdk version etc
+* **Properties Details:** All properties along with access modifiers, arguments & annotations details
+* **Method Details:** All public/private methods along with its entire signatures i.e. arguments and their types/annotations, return types, exceptions, access modifiers etc.
 
 
 # Disclaimer:
