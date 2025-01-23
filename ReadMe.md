@@ -21,6 +21,13 @@ gradle clean build && java -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar 
 * **Properties Details:** All properties along with access modifiers, arguments & annotations details
 * **Method Details:** All public/private methods along with its entire signatures i.e. arguments and their types/annotations, return types, exceptions, access modifiers etc.
 
+> **_NOTE:_**  XML Generation uses XStream library, which hasn't yet upgraded to using Java Module system. Workaround would be to expose all non-public members outside the containing module. Not ideal or secure! Use `--add-opens` JVM switch to make this happen. As under:
+
+```
+java --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED -jar build/libs/NamespaceTreeViewer-1.0-SNAPSHOT.jar --path https://repo1.maven.org/maven2/org/springframework/spring-beans/6.2.2/spring-beans-6.2.2.jar --output xml
+```
+
+
 # Disclaimer:
 This tool was developed as part of a Hackfest event at veracode, with hope to be useful for accelerating research work. Its more under development with more stability with active usage within team. Not accepting any PR/bug reports at the moment. All work done as part of this is a personal project, so direct all complaints to me.
 

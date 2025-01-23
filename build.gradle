@@ -2,8 +2,10 @@ plugins {
     id 'java'
 }
 
+
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
 
     manifest {
         attributes 'Main-Class': 'com.research.veracode.treeviewer.NamespaceTreeViewer'
@@ -11,6 +13,7 @@ jar {
     from {
         configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
+
 
 }
 

@@ -27,8 +27,8 @@ public class NamespaceTreeViewer {
     @Parameter(names = {"--namespace", "-n"},description = "Namespace whose details is needed", order = 1)
     private static String namespace = "";
 
-    @Parameter(names = {"--output", "-o"},description = "Output format text/xml/json/graphdb. (Default to text output)" , order = 2)
-    private static String output = "text";
+    @Parameter(names = {"--output", "-o"},description = "Output format xml/json." , order = 2)
+    private static String output = "xml";
 
     @Parameter(names = {"--file", "-f"},description = "Output file name. Will add extention automatically. (Defaults to output)" , order = 3)
     private static String outputFile = "";
@@ -113,7 +113,6 @@ public class NamespaceTreeViewer {
         }
 
         for(Map.Entry<String , InputStream> entry : inputStreamOfFiles.entrySet()) {
-            //outputClassFileDetails.put(entry.getKey(), classFileExtractor.getClassFileData(entry.getValue(), entry.getKey()));
             listOfClassFileDetails.add((ClassFile)classFileExtractor.getClassFileData(entry.getValue(), entry.getKey()));
         }
 
